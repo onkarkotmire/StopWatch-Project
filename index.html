@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .outer-box{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       border: 2px solid black;
+       width: 600px;
+       height: 400px;
+       margin-top: 200px;
+       font-size: 40px;
+    }
+    
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .start-stop-btn{
+        padding: 10px;
+        margin: 10px;
+        width: 200px;
+        height: 100px;
+        font-size: 40px;
+        color: white;
+        background-color: blue;
+    }
+    .reset{
+        padding: 10px;
+        margin: 10px;
+        width: 200px;
+        height: 100px;
+        font-size: 40px;
+    }
+
+
+    </style>
+</head>
+<body>
+    <div class="outer-box">
+     <h1 id="time">00m:00s</h1>
+     <div class="buttons">
+    <button class="start-stop-btn">Start</button>
+    <button class="reset">Reset</button>
+     </div>
+    </div>
+
+    <script>
+    const startstopbtn=document.getElementsByClassName("start-stop-btn")[0];
+    const time=document.getElementById("time");
+    const resetbtn=document.getElementsByClassName("reset")[0];
+
+    let minutes=0;
+    let seconds=0;
+    startstopbtn.addEventListener("click", startstoptimer);
+    resetbtn.addEventListener("click",resettimer);
+
+    let interval;
+    function startstoptimer(){
+        if(startstopbtn.innerText === "Start"){
+            interval = setInterval(()=>{
+                seconds += 1;
+                if(seconds === 60){
+                    minutes += 1;
+                    seconds = 0;
+                }
+                time.innerText=`${minutes}m:${seconds}s`
+            },1000)
+            startstopbtn.innerText="Stop";
+        }else{
+            clearInterval(interval);
+            startstopbtn.innerText="Start" ;
+        }
+    }
+
+    function resettimer(){
+        if(resetbtn.innerText === "Reset"){
+            clearInterval(interval);
+            minutes=0;
+            seconds=0;
+            time.innerText=`${minutes}m:${seconds}s`
+            startstopbtn.innerText="Start" 
+        }
+    }
+
+    
+
+
+    </script>
+</body>
+</html>
